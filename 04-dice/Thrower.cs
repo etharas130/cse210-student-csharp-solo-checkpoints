@@ -12,7 +12,9 @@ namespace _04_dice
         const int NUM_DICE = 5;
 
         // TODO: Declare your member variables here
-
+        const int numOfDice = 5;
+        List<int> _dice = new List<int>();
+        int _numOfThrows = 0;
 
         /// <summary>
         /// Determines if this is the first roll.
@@ -21,7 +23,7 @@ namespace _04_dice
         /// </summary>
         public bool IsFirstThrow()
         {
-            throw new NotImplementedException();
+            return _numOfThrows == 0;
         }
 
         /// <summary>
@@ -31,7 +33,7 @@ namespace _04_dice
         /// </summary>
         public bool ContainsScoringDie()
         {
-            throw new NotImplementedException();
+            return _dice.Contains(1) || _dice.Contains(5);
         }
         
         /// <summary>
@@ -42,7 +44,7 @@ namespace _04_dice
         /// </summary>
         public bool CanThrow()
         {
-            throw new NotImplementedException();
+            return IsFirstThrow() || ContainsScoringDie();
         }
 
         /// <summary>
@@ -53,7 +55,16 @@ namespace _04_dice
         /// </summary>
         public void ThrowDice()
         {
-            throw new NotImplementedException();
+            _numOfThrows++;
+            _dice.Clear();
+
+            Random randomGenerator = new Random();
+
+            for(int i = 0; i < numOfDice; i++)
+            {
+                int die = randomGenerator.Next(1,7);
+                _dice.Add(die);
+            }
         }
 
         /// <summary>
@@ -68,7 +79,18 @@ namespace _04_dice
         /// <returns>The points associated with the provided die value.</returns>
         public int GetPointsForDie(int die)
         {
-            throw new NotImplementedException();
+            int points = 0;
+
+            if (die == 1)
+            {
+                points = 100;
+            }
+            else if (die == 5)
+            {
+                points = 50;
+            }
+
+            return points;
         }
 
         /// <summary>
@@ -80,7 +102,14 @@ namespace _04_dice
         /// <returns>The number of points.</returns>
         public int GetPoints()
         {
-            throw new NotImplementedException();
+            int points = 0;
+
+            foreach (int die in _dice)
+            {
+                points += GetPointsForDie(die);
+            }
+
+            return points;
         }
 
         /// <summary>
@@ -90,7 +119,10 @@ namespace _04_dice
         /// <returns></returns>
         public string GetDiceString()
         {
-            throw new NotImplementedException();
+            string commaList = string.Join(", ", _dice);
+            string result = "[" + commaList + "]";
+
+            return result;
         }
     }
 }
