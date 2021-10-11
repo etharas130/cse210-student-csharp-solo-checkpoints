@@ -19,7 +19,7 @@ namespace _05_hide_and_seek
         /// </summary>
         public Hider()
         {
-            throw new NotImplementedException();
+            
         }
 
         /// <summary>
