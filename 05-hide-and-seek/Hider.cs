@@ -12,13 +12,17 @@ namespace _05_hide_and_seek
     public class Hider
     {
         // TODO: Add any member variables here
-
+        public int _location = 0;
+        public List<int> _distance;
         /// <summary>
         /// Initializes the location of the hider to a random location 1-1000.
         /// Also initializes the list of distances to be a new, empty list.
         /// </summary>
         public Hider()
         {
+            Random randomGenerator = new Random();
+            _location = randomGenerator(1,1001);
+            _distance = new List<int>();
             
         }
 
@@ -29,7 +33,8 @@ namespace _05_hide_and_seek
         /// <param name="seekerLocation">The current location of the seeker.</param>
         public void Watch(int seekerLocation)
         {
-            throw new NotImplementedException();
+            int distance = Math.Abs(_location -seekerLocation);
+            _distance.Add(distance);
         }
 
         /// <summary>
@@ -43,7 +48,28 @@ namespace _05_hide_and_seek
         /// <returns>The hint message</returns>
         public string GetHint()
         {
-            throw new NotImplementedException();
+            string hint = "";
+
+            if(distance.Count > 2)
+            {
+                hint = ("(-.-) Maybe I should take a nap.");
+            }
+            else 
+            {
+                if (IsFound())
+                {
+                    hint = ("(;.;) You found me!");
+                }
+                else if (_distance[_distance.Count - 1] > _distance[_distance.Count -2])
+                {
+                    hint = ("(^.^) Getting colder!");
+                }
+                else 
+                {
+                    hint = ("(>.<) Getting warmer!");
+                }
+            }
+            return hint;
         }
 
         /// <summary>
@@ -52,7 +78,7 @@ namespace _05_hide_and_seek
         /// <returns>True if the hider has been found.</returns>
         public bool IsFound()
         {
-            throw new NotImplementedException();
+            return _distance[_distance.Count - 1] == 0;
         }
     }
 }
