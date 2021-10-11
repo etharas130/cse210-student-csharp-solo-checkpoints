@@ -11,19 +11,23 @@ namespace _05_hide_and_seek
     /// </summary>
     public class Hider
     {
-        // TODO: Add any member variables here
-        public int _location = 0;
+        // In the future, we'll make some of these member variables/functions private,
+        // but for now, we'll just make everything public, until we discuss it in more detail.
+
+        public int _location;
         public List<int> _distance;
+
         /// <summary>
         /// Initializes the location of the hider to a random location 1-1000.
         /// Also initializes the list of distances to be a new, empty list.
         /// </summary>
         public Hider()
         {
+            // Start at a new random position from 1-1000
             Random randomGenerator = new Random();
             _location = randomGenerator.Next(1, 1001);
+
             _distance = new List<int>();
-            
         }
 
         /// <summary>
@@ -33,7 +37,10 @@ namespace _05_hide_and_seek
         /// <param name="seekerLocation">The current location of the seeker.</param>
         public void Watch(int seekerLocation)
         {
-            int distance = Math.Abs(_location -seekerLocation);
+            // Compute the distance from the seeker
+            int distance = Math.Abs(_location - seekerLocation);
+
+            // Add this distance to the end of our list
             _distance.Add(distance);
         }
 
@@ -50,25 +57,30 @@ namespace _05_hide_and_seek
         {
             string hint = "";
 
-            if(_distance.Count > 2)
+            if (_distance.Count < 2)
             {
-                hint = ("(-.-) Maybe I should take a nap.");
+                // we don't have enough information to know if they are getting
+                // warmer or colder, so just give a generic message
+                hint = "(-.-) Maybe I'll take a nap.";
             }
-            else 
+            else
             {
                 if (IsFound())
                 {
-                    hint = ("(;.;) You found me!");
+                    hint = "(;.;) You found me!";
                 }
-                else if (_distance[_distance.Count - 1] > _distance[_distance.Count -2])
+                else if (_distance[_distance.Count - 1] > _distance[_distance.Count - 2])
                 {
-                    hint = ("(^.^) Getting colder!");
+                    // the latest distance is further away than before
+                    hint = "(^.^) Getting colder!";
                 }
-                else 
+                else
                 {
-                    hint = ("(>.<) Getting warmer!");
+                    // The latest distance is the same or closer
+                    hint = "(>.<) Getting warmer!";
                 }
             }
+
             return hint;
         }
 
