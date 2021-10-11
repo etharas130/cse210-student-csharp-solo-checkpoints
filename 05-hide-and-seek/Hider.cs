@@ -21,7 +21,7 @@ namespace _05_hide_and_seek
         public Hider()
         {
             Random randomGenerator = new Random();
-            _location = randomGenerator(1,1001);
+            _location = randomGenerator.Next(1, 1001);
             _distance = new List<int>();
             
         }
@@ -50,7 +50,7 @@ namespace _05_hide_and_seek
         {
             string hint = "";
 
-            if(distance.Count > 2)
+            if(_distance.Count > 2)
             {
                 hint = ("(-.-) Maybe I should take a nap.");
             }
