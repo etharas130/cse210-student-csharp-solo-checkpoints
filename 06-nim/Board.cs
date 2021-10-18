@@ -12,12 +12,13 @@ namespace _06_nim
     class Board
     {
         // TODO: Declare any member variables here.
-
+        private List<int> _piles = new List<int>();
         /// <summary>
         /// Initialize the Board
         /// </summary>
         public Board()
         {
+            Prepare();
         }
 
         /// <summary>
@@ -29,7 +30,15 @@ namespace _06_nim
         /// </summary>
         private void Prepare()
         {
-            throw new NotImplementedException();
+            Random randomGenerator = new Random();
+            int numOfPiles = randomGenerator.Next(2,6);
+
+            for (int i = 0; i < numOfPiles; i++)
+            {
+                int numOfStones = randomGenerator.Next(1,9);
+                _piles.Add(numOfStones);
+            }
+
         }
 
         /// <summary>
@@ -39,7 +48,13 @@ namespace _06_nim
         /// <param name="move">Contains the pile and the number of stones</param>
         public void Apply(Move move)
         {
-            throw new NotImplementedException();            
+            int stones = move.GetStones();
+            int pile = move.GetPile();
+
+            int newStoneAmount = _piles[pile] - stones;
+
+            _piles[pile] = Math.Max(0, newStoneAmount);
+
         }
 
         /// <summary>
@@ -48,7 +63,18 @@ namespace _06_nim
         /// <returns>True, if there are no more stones</returns>
         public bool IsEmpty()
         {
-            throw new NotImplementedException();
+            bool foundStones = false;
+
+            foreach (int pileCount in _piles)
+            {
+                if (pileCount > 0)
+                {
+                    foundStones = true;
+                    break;
+                }
+            }
+
+            return !foundStones;
         }
 
         /// <summary>
@@ -64,7 +90,16 @@ namespace _06_nim
         /// <returns>The string representation.</returns>
         public override string ToString()
         {
-            throw new NotImplementedException();
+            string text = "\n--------------------\n";
+
+            for (int i = 0; i < _piles.Count; i++)
+            {
+                text += GetTextForPile(i, _piles[i]);
+            }
+            
+            text += "--------------------\n";
+
+            return text;
         }
 
         /// <summary>
@@ -79,7 +114,16 @@ namespace _06_nim
         /// <returns></returns>
         private string GetTextForPile(int pileNumber, int stones)
         {
-            throw new NotImplementedException();
+            string text = $"{pileNumber}: ";
+
+            for (int i = 0; i < stones; i++)
+            {
+                text += "O ";
+            }
+
+            text += "\n";
+
+            return text;
         }
     }
 }

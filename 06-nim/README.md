@@ -7,4 +7,4 @@ A game of stones. Try to outsmart your opponent to be the last one to remove one
 
 ## Authors
 ---
-* (Your name here...)
+* Brenin Peterson
